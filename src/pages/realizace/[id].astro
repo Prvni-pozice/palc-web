@@ -31,7 +31,11 @@ const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technic
   description={`${p.scope}. ${p.tags.join(', ')} — ${p.place}, ${p.year}.`}
   active="Realizace"
 >
-  <ImagePlaceholder dark label="Fotografie celé budovy — dodá klient" ratio="21 / 8" class="casehero" />
+  {p.image ? (
+    <div class="casehero-img" style={`background-image: url('${p.image}');`}></div>
+  ) : (
+    <ImagePlaceholder dark label="Fotografie celé budovy — dodá klient" ratio="21 / 8" class="casehero" />
+  )}
 
   <Section pad="64px 40px">
     <div class="case">
@@ -66,7 +70,7 @@ const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technic
     <SectionHeading overline="Podobné realizace" title="Další stavby" />
     <div class="grid3 mt40">
       {others.map((x) => (
-        <ProjectCard title={x.title} place={x.place} year={x.year} tags={x.tags} scope={x.scope} href={`/realizace/${x.id}/`} />
+        <ProjectCard title={x.title} place={x.place} year={x.year} tags={x.tags} scope={x.scope} image={x.image} href={`/realizace/${x.id}/`} />
       ))}
     </div>
   </Section>
@@ -74,6 +78,14 @@ const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technic
 
 <style>
   :global(.casehero) { border: 0; }
+  .casehero-img {
+    aspect-ratio: 21 / 8;
+    background-size: cover;
+    background-position: center;
+  }
+  @media (max-width: 720px) {
+    .casehero-img { aspect-ratio: 3 / 2; }
+  }
   .case { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; }
   .case__title { font-size: var(--text-3xl); margin: 12px 0 0; }
   .case__tags { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }

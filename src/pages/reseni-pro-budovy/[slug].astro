@@ -58,7 +58,7 @@ const mainServices = SERVICES.filter((s) => s.slug !== 'specializovane-technolog
       <SectionHeading overline="Reference" title="Realizace v tomto segmentu" />
       <div class="grid3 mt40">
         {related.map((p) => (
-          <ProjectCard title={p.title} place={p.place} year={p.year} tags={p.tags} scope={p.scope} href={`/realizace/${p.id}/`} />
+          <ProjectCard title={p.title} place={p.place} year={p.year} tags={p.tags} scope={p.scope} image={p.image} href={`/realizace/${p.id}/`} />
         ))}
       </div>
     </Section>

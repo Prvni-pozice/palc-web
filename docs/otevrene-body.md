@@ -9,10 +9,14 @@ systému „PALC Design System" (claude.ai/design). Před spuštěním je potře
    odvodnění střech, jádrové vrtání; voda, odpad, topení, klimatizace.
    MaR a Elektro zatím NEJSOU na webu (nevíme, jestli PALČ dodává).
    → `src/data/services.js`
-2. **Reference s fotografiemi** — všech 6 realizací jsou UKÁZKOVÁ DATA
-   s placeholdery. Potřebujeme skutečné stavby: název, lokalita, rok, typ,
-   profese, rozsah, investor/GD (pokud lze zveřejnit), fotky (celá budova!).
+2. **Reference s fotografiemi** — všech 6 realizací jsou UKÁZKOVÁ DATA.
+   Potřebujeme skutečné stavby: název, lokalita, rok, typ, profese, rozsah,
+   investor/GD (pokud lze zveřejnit), fotky (celá budova!).
    → `src/data/projects.js`
+   **POZOR:** hero slider (`public/img/hero/`) a fotky u p1–p3
+   (`public/img/realizace/`) jsou DEMO snímky z Unsplash (volná licence) na
+   přání Zdeňka, aby web nevypadal prázdně. Před spuštěním NUTNO nahradit
+   reálnými stavbami PALČ — cizí budovy nesmí zůstat vydávané za reference.
 3. **Tvrdá čísla** — roky zkušeností, počet realizací, odborníků (na homepage
    a O společnosti zatím „X"). Loga klientů se souhlasem.
 4. **Kontakty** — e-mail `poptavky@palc.cz` a telefon jsou PLACEHOLDER.

@@ -40,7 +40,7 @@ import { PROFESSIONS } from '../../data/services.js';
     <div class="grid3" data-projects>
       {PROJECTS.map((p) => (
         <div class="grid3__item" data-type={p.type} data-tags={p.tags.join('|')}>
-          <ProjectCard title={p.title} place={p.place} year={p.year} tags={p.tags} scope={p.scope} href={`/realizace/${p.id}/`} />
+          <ProjectCard title={p.title} place={p.place} year={p.year} tags={p.tags} scope={p.scope} image={p.image} href={`/realizace/${p.id}/`} />
         </div>
       ))}
     </div>

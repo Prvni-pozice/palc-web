@@ -1,14 +1,19 @@
 ---
 // ServiceCard dle DS: bez ikon, jen typografie + šipka. Hover = navy border.
+// graphic: volitelné technické schéma v hlavě karty (ServiceGraphic)
+import ServiceGraphic from './ServiceGraphic.astro';
+
 interface Props {
   title: string;
   description: string;
   href?: string;
+  graphic?: string;
 }
-const { title, description, href = '#' } = Astro.props;
+const { title, description, href = '#', graphic } = Astro.props;
 ---
 
 <a href={href} class="svc">
+  {graphic && <ServiceGraphic kind={graphic} />}
   <h3 class="svc__title">{title}</h3>
   <p class="svc__desc">{description}</p>
   <span class="svc__more" aria-hidden="true">Detail služby <span class="svc__arrow">→</span></span>
