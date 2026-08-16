@@ -1,0 +1,61 @@
+---
+// Kontakt — údaje = PLACEHOLDER (sídlo Praha 9 vs. provozovna Rudná čeká potvrzení klienta)
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import MetaLine from '../components/MetaLine.astro';
+import Button from '../components/Button.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import { SITE } from '../data/site.js';
+---
+
+<Base
+  title="Kontakt | PALČ"
+  description="Kontaktujte PALČ — kompletní technické zařízení budov. Poptávky, servis, kariéra."
+  active="Kontakt"
+>
+  <Section pad="72px 40px 96px">
+    <div class="kont">
+      <div>
+        <MetaLine accent>Kontakt</MetaLine>
+        <h1 class="kont__title">Spojte se s námi</h1>
+        <div class="kont__block">
+          <MetaLine>Poptávky</MetaLine>
+          <a href={`mailto:${SITE.email}`} class="kont__link">{SITE.email}</a>
+          <a href="#" class="kont__link">{SITE.phone}</a>
+        </div>
+        <div class="kont__block">
+          <MetaLine>Sídlo</MetaLine>
+          <p class="kont__text">PALČ s.r.o.<br />Praha 9 — přesnou adresu a fakturační údaje doplní klient</p>
+        </div>
+        <div class="kont__block">
+          <MetaLine>Provozovna</MetaLine>
+          <p class="kont__text">Čeká potvrzení klienta (Praha 9 / Rudná)</p>
+        </div>
+        <div class="mt32">
+          <Button variant="primary" size="lg" href="/poptavka/" arrow>Poptat realizaci</Button>
+        </div>
+      </div>
+      <ImagePlaceholder label="Mapa / fotografie sídla — doplní se" ratio="4 / 3" />
+    </div>
+  </Section>
+</Base>
+
+<style>
+  .kont { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: start; }
+  .kont__title { font-size: var(--text-3xl); margin-top: 14px; }
+  .kont__block {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kont__link { font-size: 16px; font-weight: 600; }
+  .kont__text { font-size: 15px; }
+  .mt32 { margin-top: 32px; }
+  @media (max-width: 960px) {
+    .kont { grid-template-columns: 1fr; gap: 40px; }
+    .kont__title { font-size: var(--text-2xl); }
+  }
+</style>

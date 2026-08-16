@@ -1,0 +1,48 @@
+# Otevřené body — palc-web
+
+Stav k 16. 8. 2026. Web je postavený jako kompletní kostra podle zadání a design
+systému „PALC Design System" (claude.ai/design). Před spuštěním je potřeba doplnit:
+
+## Blokuje obsah (vstupy od klienta)
+
+1. **Seznam služeb/profesí** — jistě doloženo jen: kompletní TZB, podtlakové
+   odvodnění střech, jádrové vrtání; voda, odpad, topení, klimatizace.
+   MaR a Elektro zatím NEJSOU na webu (nevíme, jestli PALČ dodává).
+   → `src/data/services.js`
+2. **Reference s fotografiemi** — všech 6 realizací jsou UKÁZKOVÁ DATA
+   s placeholdery. Potřebujeme skutečné stavby: název, lokalita, rok, typ,
+   profese, rozsah, investor/GD (pokud lze zveřejnit), fotky (celá budova!).
+   → `src/data/projects.js`
+3. **Tvrdá čísla** — roky zkušeností, počet realizací, odborníků (na homepage
+   a O společnosti zatím „X"). Loga klientů se souhlasem.
+4. **Kontakty** — e-mail `poptavky@palc.cz` a telefon jsou PLACEHOLDER.
+   Sídlo Praha 9 vs. provozovna Rudná čeká potvrzení. → `src/data/site.js`
+5. **Doména** — `astro.config.mjs` má `site: https://example.com`, doplnit
+   ostrou doménu (kvůli sitemap + canonical).
+
+## Technické
+
+6. **Ostrá loga** — PNG z design projektu nejdou přenést (limit 256 KiB na
+   binárky, ověřeno). Aktuálně dočasné SVG (`src/components/Logo.astro`:
+   text „PAL" + C z motif-c.svg). Nahrát `logo-primary.png` + `logo-white.png`
+   (nebo lépe SVG z PDF zdrojů) přes GitHub → pak nahradit v Logo.astro.
+7. **Odeslání poptávky** — formulář `/poptavka/` není napojený (statický web).
+   Možnosti: Vercel serverless funkce + SMTP, nebo služba typu Formspree.
+   Upload souborů do 100 MB bude chtít úložiště (S3/R2) — rozmyslet.
+8. **Originální font logotypu** — Jost + Barlow jsou substituce (viz DS readme).
+   Až budou licencované řezy, vyměnit v `src/layouts/Base.astro` + tokens.
+9. **Výkon** — fonty přes @fontsource (8 řezů). Před ostrým spuštěním zvážit
+   vlastní subset + načtení po `load` (viz postup z web-1P, PSI 100 na mobilu).
+10. **Deploy** — Vercel zatím nenapojený. Po napojení pushovat dávkově
+    (každý push = deploy).
+
+## Etapa 2 (připraveno v IA, zatím nestavět)
+
+- `/sortiment/` — B2B poptávkový katalog (kategorie → výpis → detail,
+  poptávkový košík). Design system s tím počítá, menu se rozšíří až to bude.
+
+## Zpětný push do design systému
+
+Po dodání obsahu pushnout zpět komponenty, které DS nemá (postup viz
+/data/bot/DESIGN-CODE-PIPELINE.md): mobilní menu (SiteHeader), filtry realizací,
+stavy formuláře.

@@ -1,0 +1,39 @@
+---
+// Stat dle DS (components/core/Stat.jsx): velké číslo + červená linka + verzálkový label
+interface Props {
+  value: string;
+  label: string;
+  inverse?: boolean;
+  size?: 'md' | 'lg';
+}
+const { value, label, inverse = false, size = 'md' } = Astro.props;
+---
+
+<div class={`stat ${inverse ? 'stat--inverse' : ''}`}>
+  <span class={`stat__value stat__value--${size}`}>{value}</span>
+  <div class="stat__bar"></div>
+  <p class="stat__label">{label}</p>
+</div>
+
+<style>
+  .stat__value {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--text-strong);
+  }
+  .stat__value--md { font-size: 48px; }
+  .stat__value--lg { font-size: 64px; }
+  .stat__bar { width: 28px; height: 3px; background: var(--accent); margin: 12px 0 8px; }
+  .stat__label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .stat--inverse .stat__value { color: #fff; }
+  .stat--inverse .stat__label { color: var(--text-inverse-muted); }
+</style>

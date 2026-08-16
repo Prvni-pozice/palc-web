@@ -1,0 +1,194 @@
+---
+// B2B poptávka dle DS ui_kits/web/Poptavka.jsx: formulář s uploadem podkladů.
+// POZOR: odeslání zatím není napojené (statický web, čeká SMTP/endpoint — viz docs/otevrene-body.md).
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import MetaLine from '../components/MetaLine.astro';
+import Stat from '../components/Stat.astro';
+import Button from '../components/Button.astro';
+import { SITE } from '../data/site.js';
+import { PROJECT_TYPES } from '../data/projects.js';
+import { PROFESSIONS } from '../data/services.js';
+---
+
+<Base
+  title="Poptávka — pošlete nám podklady | PALČ"
+  description="Nejrychlejší cesta k nabídce je projektová dokumentace nebo výkaz výměr. Ozveme se s technickým řešením a nacením."
+  active="Kontakt"
+>
+  <Section pad="72px 40px 96px">
+    <div class="pop">
+      <div>
+        <MetaLine accent>Poptávka</MetaLine>
+        <h1 class="pop__title">Máte projekt? Pošlete nám podklady.</h1>
+        <p class="pop__lead">Nejrychlejší cesta k&nbsp;nabídce je projektová dokumentace nebo výkaz výměr. Ozveme se s&nbsp;technickým řešením a&nbsp;nacením.</p>
+        <div class="pop__stats">
+          <Stat value="24 h" label="Reakční doba" />
+          <Stat value="1" label="Kontaktní osoba pro projekt" />
+        </div>
+        <div class="pop__contact">
+          <MetaLine>Kontakt</MetaLine>
+          <a href={`mailto:${SITE.email}`} class="pop__link">{SITE.email}</a>
+          <a href="#" class="pop__link">{SITE.phone}</a>
+        </div>
+      </div>
+
+      <form class="form" method="post" data-form>
+        <label class="field">
+          <span class="field__label">Firma</span>
+          <input class="field__box" name="firma" placeholder="Název společnosti" required />
+        </label>
+        <label class="field">
+          <span class="field__label">Kontaktní osoba</span>
+          <input class="field__box" name="osoba" placeholder="Jméno a příjmení" required />
+        </label>
+        <label class="field">
+          <span class="field__label">E-mail</span>
+          <input class="field__box" type="email" name="email" placeholder="jmeno@firma.cz" required />
+        </label>
+        <label class="field">
+          <span class="field__label">Telefon</span>
+          <input class="field__box" type="tel" name="telefon" placeholder="+420" />
+        </label>
+        <label class="field">
+          <span class="field__label">Místo realizace</span>
+          <input class="field__box" name="misto" placeholder="Město / adresa stavby" />
+        </label>
+        <label class="field">
+          <span class="field__label">Typ stavby</span>
+          <select class="field__box" name="typ">
+            <option value="" selected disabled>Vyberte…</option>
+            {PROJECT_TYPES.map((t) => <option value={t}>{t}</option>)}
+          </select>
+        </label>
+        <label class="field">
+          <span class="field__label">Požadované profese</span>
+          <select class="field__box" name="profese">
+            <option value="" selected disabled>Vyberte…</option>
+            {[...PROFESSIONS, 'Kompletní TZB'].map((p) => <option value={p}>{p}</option>)}
+          </select>
+        </label>
+        <label class="field">
+          <span class="field__label">Plánovaný termín <span class="field__opt">· nepovinné</span></span>
+          <input class="field__box" name="termin" placeholder="např. Q3 2027" />
+        </label>
+        <label class="field field--full">
+          <span class="field__label">Zpráva</span>
+          <textarea class="field__box" name="zprava" rows="4" placeholder="Stručný popis projektu…"></textarea>
+        </label>
+        <div class="field--full">
+          <span class="field__label">Projektová dokumentace / výkaz výměr</span>
+          <label class="filedrop" data-filedrop>
+            <p class="filedrop__main" data-filedrop-label>Přetáhněte soubory nebo klikněte pro výběr</p>
+            <p class="filedrop__hint">PDF, DWG, XLS · do 100 MB · nebo vložte odkaz na úložiště do zprávy</p>
+            <input type="file" name="soubory" multiple hidden />
+          </label>
+        </div>
+        <div class="form__footer field--full">
+          <p class="form__gdpr">Odesláním souhlasíte se zpracováním údajů pro účely nabídky.</p>
+          <Button variant="primary" size="lg" type="submit" arrow>Odeslat poptávku</Button>
+        </div>
+      </form>
+    </div>
+  </Section>
+</Base>
+
+<script>
+  // FileDrop: zobrazení názvů souborů + drag&drop
+  const drop = document.querySelector<HTMLElement>('[data-filedrop]');
+  const input = drop?.querySelector<HTMLInputElement>('input[type=file]');
+  const label = drop?.querySelector<HTMLElement>('[data-filedrop-label]');
+
+  function show(files: FileList | null) {
+    if (!label) return;
+    const names = files ? [...files].map((f) => f.name) : [];
+    label.textContent = names.length ? names.join(' · ') : 'Přetáhněte soubory nebo klikněte pro výběr';
+  }
+  input?.addEventListener('change', () => show(input.files));
+  drop?.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('is-over'); });
+  drop?.addEventListener('dragleave', () => drop.classList.remove('is-over'));
+  drop?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    drop.classList.remove('is-over');
+    if (input && e.dataTransfer?.files) { input.files = e.dataTransfer.files; show(input.files); }
+  });
+
+  // Odeslání zatím není napojené na backend — formulář jen potvrdí přijetí (TODO: endpoint)
+  document.querySelector('[data-form]')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Formulář zatím není napojen na odesílání — kontaktujte nás prosím e-mailem.');
+  });
+</script>
+
+<style>
+  .pop { display: grid; grid-template-columns: 1fr 1.4fr; gap: 72px; align-items: start; }
+  .pop__title { font-size: var(--text-3xl); margin-top: 14px; }
+  .pop__lead { margin-top: 18px; font-size: var(--text-md); max-width: 420px; }
+  .pop__stats { display: flex; gap: 40px; margin-top: 44px; }
+  .pop__contact {
+    margin-top: 44px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .pop__link { font-size: 16px; font-weight: 600; }
+
+  .form {
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
+    padding: 40px 44px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 20px;
+  }
+  .field { display: block; }
+  .field--full { grid-column: 1 / -1; }
+  .field__label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-strong);
+    margin-bottom: 6px;
+  }
+  .field__opt { font-weight: 400; color: var(--text-muted); }
+  .field__box {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-strong);
+    background: #fff;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-control);
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .field__box:focus { border-color: var(--palc-navy-900); box-shadow: 0 0 0 3px var(--palc-navy-50); }
+  textarea.field__box { resize: vertical; }
+
+  .filedrop {
+    display: block;
+    border: 1px dashed var(--palc-grey-300);
+    background: var(--palc-grey-50);
+    border-radius: var(--radius-control);
+    padding: 26px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--dur-fast) var(--ease-out);
+  }
+  .filedrop:hover, .filedrop.is-over { border-color: var(--palc-navy-900); background: var(--palc-navy-50); }
+  .filedrop__main { font-weight: 600; font-size: 14px; color: var(--text-strong); }
+  .filedrop__hint { margin-top: 6px; font-size: 12px; color: var(--text-muted); }
+
+  .form__footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .form__gdpr { font-size: 12px; color: var(--text-muted); max-width: 340px; }
+
+  @media (max-width: 960px) {
+    .pop { grid-template-columns: 1fr; gap: 48px; }
+    .pop__title { font-size: var(--text-2xl); }
+    .form { grid-template-columns: 1fr; padding: 28px 24px; }
+  }
+</style>

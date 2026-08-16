@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import MetaLine from '../components/MetaLine.astro';
+import Button from '../components/Button.astro';
+---
+
+<Base title="Stránka nenalezena | PALČ" description="Stránka nenalezena.">
+  <Section pad="128px 40px">
+    <MetaLine accent>404</MetaLine>
+    <h1 class="nf__title">Tahle stránka tu není.</h1>
+    <p class="nf__lead">Budovu bychom v chodu udrželi, tuhle adresu ne.</p>
+    <div class="nf__cta">
+      <Button variant="secondary" href="/" arrow>Zpět na úvod</Button>
+      <Button variant="outline" href="/realizace/">Prohlédnout realizace</Button>
+    </div>
+  </Section>
+</Base>
+
+<style>
+  .nf__title { font-size: var(--text-3xl); margin-top: 14px; }
+  .nf__lead { margin-top: 16px; font-size: var(--text-md); }
+  .nf__cta { display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
+</style>

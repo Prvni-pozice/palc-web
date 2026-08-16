@@ -1,0 +1,72 @@
+---
+// SiteFooter dle DS: navy-950, logo, claim, 2 sloupce odkazů, spodní nota
+import { SITE } from '../data/site.js';
+import { SERVICES } from '../data/services.js';
+import Logo from './Logo.astro';
+
+const companyLinks = [
+  { label: 'O společnosti', href: '/o-spolecnosti/' },
+  { label: 'Realizace', href: '/realizace/' },
+  { label: 'Řešení pro budovy', href: '/reseni-pro-budovy/' },
+  { label: 'Kariéra', href: '/kariera/' },
+  { label: 'Kontakt', href: '/kontakt/' },
+];
+---
+
+<footer class="ftr">
+  <div class="ftr__grid">
+    <div class="ftr__brand">
+      <Logo inverse height={24} />
+      <p class="ftr__claim">Technologie, které drží budovy v&nbsp;chodu.</p>
+    </div>
+    <div class="ftr__col">
+      <p class="ftr__title">Služby</p>
+      {SERVICES.map((s) => <a href={`/sluzby/${s.slug}/`} class="ftr__link">{s.title}</a>)}
+    </div>
+    <div class="ftr__col">
+      <p class="ftr__title">Společnost</p>
+      {companyLinks.map((l) => <a href={l.href} class="ftr__link">{l.label}</a>)}
+    </div>
+  </div>
+  <div class="ftr__note">{SITE.footerNote}</div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--surface-darker);
+    color: var(--text-inverse-muted);
+    padding: 64px 40px 32px;
+  }
+  .ftr__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    max-width: var(--container-max);
+    margin: 0 auto;
+  }
+  .ftr__brand { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+  .ftr__claim { font-size: 14px; max-width: 320px; }
+  .ftr__col { display: flex; flex-direction: column; gap: 10px; }
+  .ftr__title {
+    margin: 0 0 4px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: #fff;
+  }
+  .ftr__link { font-size: 14px; color: var(--text-inverse-muted); }
+  .ftr__link:hover { color: #fff; }
+  .ftr__note {
+    max-width: var(--container-max);
+    margin: 48px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-inverse);
+    font-size: 13px;
+  }
+  @media (max-width: 720px) {
+    .ftr { padding: 48px 20px 24px; }
+    .ftr__grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>

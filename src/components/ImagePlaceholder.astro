@@ -1,0 +1,39 @@
+---
+// Šrafovaný placeholder fotografie (DS pravidlo: dokud nejsou reálné fotky, nikdy stock/generované)
+interface Props {
+  label?: string;
+  ratio?: string;
+  dark?: boolean;
+  class?: string;
+}
+const { label = 'Fotografie stavby', ratio = '3 / 2', dark = false, class: className = '' } = Astro.props;
+---
+
+<div class={`imgph ${dark ? 'imgph--dark' : ''} ${className}`} style={`aspect-ratio: ${ratio};`}>
+  <span class="imgph__label">{label}</span>
+</div>
+
+<style is:global>
+  .imgph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(45deg, rgba(19, 53, 89, .08) 0 1px, transparent 1px 12px), var(--palc-grey-100);
+    border: 1px solid var(--border-subtle);
+  }
+  .imgph--dark {
+    background: repeating-linear-gradient(45deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 12px), var(--palc-navy-950);
+    border-color: rgba(255, 255, 255, .12);
+  }
+  .imgph__label {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--palc-grey-500);
+    text-align: center;
+    padding: 0 16px;
+  }
+  .imgph--dark .imgph__label { color: rgba(255, 255, 255, .4); }
+</style>

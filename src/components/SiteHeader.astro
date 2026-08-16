@@ -1,0 +1,128 @@
+---
+// SiteHeader dle DS + mobilní menu (DS ho neřešil — doplněno dle pravidel: navy plocha, bílé odkazy).
+import { MENU } from '../data/site.js';
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+
+interface Props {
+  active?: string;
+  inverse?: boolean;
+}
+const { active, inverse = false } = Astro.props;
+---
+
+<header class={`hdr ${inverse ? 'hdr--inverse' : ''}`}>
+  <a href="/" class="hdr__logo" aria-label="PALC — úvodní stránka">
+    <Logo inverse={inverse} />
+  </a>
+  <nav class="hdr__nav" aria-label="Hlavní navigace">
+    {MENU.map((it) => (
+      <a href={it.href} class={`hdr__link ${it.label === active ? 'hdr__link--active' : ''}`}>{it.label}</a>
+    ))}
+  </nav>
+  <div class="hdr__cta">
+    <Button variant="primary" href="/poptavka/">Poptat realizaci</Button>
+  </div>
+  <button class="hdr__burger" type="button" aria-label="Otevřít menu" aria-expanded="false" data-menu-toggle>
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobmenu" data-menu hidden>
+  <nav aria-label="Mobilní navigace">
+    {MENU.map((it) => (
+      <a href={it.href} class={`mobmenu__link ${it.label === active ? 'mobmenu__link--active' : ''}`}>{it.label}</a>
+    ))}
+    <a href="/poptavka/" class="mobmenu__cta">Poptat realizaci →</a>
+  </nav>
+</div>
+
+<script>
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const menu = document.querySelector('[data-menu]');
+  toggle?.addEventListener('click', () => {
+    const open = menu?.hasAttribute('hidden');
+    if (open) menu?.removeAttribute('hidden');
+    else menu?.setAttribute('hidden', '');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.classList.toggle('is-open', !!open);
+  });
+</script>
+
+<style>
+  .hdr {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 0 40px;
+    height: 80px;
+    background: #fff;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .hdr--inverse { background: transparent; border-bottom-color: rgba(255, 255, 255, .14); }
+  .hdr__logo { display: flex; align-items: center; }
+  .hdr__nav { display: flex; gap: 28px; margin-left: auto; }
+  .hdr__link {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--palc-grey-700);
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+  .hdr__link:hover { color: var(--accent-hover); }
+  .hdr__link--active { color: var(--text-strong); border-bottom-color: var(--accent); }
+  .hdr--inverse .hdr__link { color: rgba(255, 255, 255, .72); }
+  .hdr--inverse .hdr__link:hover,
+  .hdr--inverse .hdr__link--active { color: #fff; }
+
+  .hdr__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .hdr__burger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--palc-navy-900);
+    transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+  }
+  .hdr--inverse .hdr__burger span { background: #fff; }
+  .hdr__burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hdr__burger.is-open span:nth-child(2) { opacity: 0; }
+  .hdr__burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobmenu {
+    background: var(--surface-dark);
+    padding: 24px 40px 32px;
+  }
+  .mobmenu nav { display: flex; flex-direction: column; gap: 4px; }
+  .mobmenu__link {
+    color: rgba(255, 255, 255, .85);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-inverse);
+  }
+  .mobmenu__link:hover, .mobmenu__link--active { color: #fff; }
+  .mobmenu__cta { color: var(--accent); font-weight: 600; padding: 16px 0 0; }
+  .mobmenu__cta:hover { color: var(--accent-hover); }
+
+  @media (max-width: 960px) {
+    .hdr { padding: 0 20px; gap: 16px; }
+    .hdr__nav, .hdr__cta { display: none; }
+    .hdr__burger { display: flex; margin-left: auto; }
+  }
+  @media (min-width: 961px) {
+    .mobmenu { display: none; }
+  }
+</style>

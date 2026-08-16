@@ -1,0 +1,94 @@
+---
+// Detail segmentu — vlastní URL pro typ budovy (SEO/GEO KPI ze zadání).
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import MetaLine from '../../components/MetaLine.astro';
+import Button from '../../components/Button.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { SEGMENTS } from '../../data/segments.js';
+import { SERVICES } from '../../data/services.js';
+import { PROJECTS } from '../../data/projects.js';
+
+export function getStaticPaths() {
+  return SEGMENTS.map((s) => ({ params: { slug: s.slug }, props: { segment: s } }));
+}
+
+const { segment } = Astro.props;
+// Mapování segment → typ stavby v referencích (ukázková data)
+const typeMap = {
+  'prumysl-a-logistika': 'Průmysl a logistika',
+  'developerske-a-bytove-projekty': 'Bytové projekty',
+  'administrativa-a-kancelare': 'Administrativní budovy',
+  'retail-a-komercni-budovy': 'Retail',
+  'verejne-budovy': 'Veřejné stavby',
+  'hotely-a-zdravotnictvi': 'Hotely a gastro',
+};
+const related = PROJECTS.filter((p) => p.type === typeMap[segment.slug]).slice(0, 3);
+const mainServices = SERVICES.filter((s) => s.slug !== 'specializovane-technologie');
+---
+
+<Base
+  title={`${segment.title} — řešení TZB | PALČ`}
+  description={segment.desc}
+  active="Řešení pro budovy"
+>
+  <Section bg="var(--surface-dark)" pad="88px 40px">
+    <MetaLine accent>Řešení pro budovy</MetaLine>
+    <h1 class="page-h1">{segment.title}</h1>
+    <p class="page-lead">{segment.desc}</p>
+  </Section>
+
+  <Section>
+    <SectionHeading
+      overline="Profese pro tento typ budov"
+      title="Co pro vás poskládáme"
+      lead="Kombinaci profesí navrhneme podle projektu — jedna odpovědnost za funkční celek."
+    />
+    <div class="grid3 mt48">
+      {mainServices.map((s) => (
+        <ServiceCard title={s.title} description={s.desc} href={`/sluzby/${s.slug}/`} />
+      ))}
+    </div>
+  </Section>
+
+  {related.length > 0 && (
+    <Section bg="var(--palc-grey-50)">
+      <SectionHeading overline="Reference" title="Realizace v tomto segmentu" />
+      <div class="grid3 mt40">
+        {related.map((p) => (
+          <ProjectCard title={p.title} place={p.place} year={p.year} tags={p.tags} scope={p.scope} href={`/realizace/${p.id}/`} />
+        ))}
+      </div>
+    </Section>
+  )}
+
+  <Section bg="var(--surface-darker)" pad="88px 40px">
+    <div class="cta">
+      <div>
+        <h2 class="cta__title">Máte projekt? Pošlete nám podklady.</h2>
+        <p class="cta__lead">Projektová dokumentace nebo výkaz výměr stačí.</p>
+      </div>
+      <Button variant="primary" size="lg" href="/poptavka/" arrow>Poptat realizaci</Button>
+    </div>
+  </Section>
+</Base>
+
+<style>
+  .page-h1 { color: #fff; font-size: var(--text-3xl); margin-top: 14px; max-width: 820px; }
+  .page-lead { color: var(--text-inverse-muted); font-size: var(--text-md); max-width: 640px; margin-top: 18px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .mt48 { margin-top: 48px; }
+  .mt40 { margin-top: 40px; }
+  .cta { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .cta__title { color: #fff; font-size: var(--text-2xl); }
+  .cta__lead { color: var(--text-inverse-muted); margin-top: 10px; }
+  @media (max-width: 960px) {
+    .grid3 { grid-template-columns: repeat(2, 1fr); }
+    .page-h1 { font-size: var(--text-2xl); }
+  }
+  @media (max-width: 640px) {
+    .grid3 { grid-template-columns: 1fr; }
+  }
+</style>

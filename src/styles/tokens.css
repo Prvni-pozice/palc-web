@@ -1,0 +1,128 @@
+/* PALC Design System — tokeny. Zdroj: claude.ai/design projekt „PALC Design System"
+   (tokens/colors.css + typography.css + spacing.css + base.css, zkopírováno doslova).
+   Fonty: self-host přes @fontsource (Jost + Barlow = substituce, čekáme originální řezy). */
+
+:root {
+  /* colors — zdroj: logo-palc-02.pdf (navy #133559, červená #FF464A) */
+  --palc-navy-950: #0A1D31;
+  --palc-navy-900: #133559;
+  --palc-navy-800: #1A4370;
+  --palc-navy-700: #235282;
+  --palc-navy-100: #D9E2EC;
+  --palc-navy-50: #EDF2F7;
+  --palc-red-600: #E8393D;
+  --palc-red-500: #FF464A;
+  --palc-red-100: #FFE2E3;
+  --palc-white: #FFFFFF;
+  --palc-grey-50: #F5F7F9;
+  --palc-grey-100: #EDF1F4;
+  --palc-grey-200: #DCE3E9;
+  --palc-grey-300: #C2CDD6;
+  --palc-grey-500: #7C8B99;
+  --palc-grey-700: #46586A;
+  /* semantic */
+  --surface-page: var(--palc-white);
+  --surface-subtle: var(--palc-grey-50);
+  --surface-card: var(--palc-white);
+  --surface-dark: var(--palc-navy-900);
+  --surface-darker: var(--palc-navy-950);
+  --text-strong: var(--palc-navy-900);
+  --text-body: #39495A;
+  --text-muted: #6B7C8C;
+  --text-inverse: var(--palc-white);
+  --text-inverse-muted: rgba(255, 255, 255, .64);
+  --text-accent: var(--palc-red-500);
+  --border-subtle: var(--palc-grey-200);
+  --border-strong: var(--palc-grey-300);
+  --border-inverse: rgba(255, 255, 255, .16);
+  --accent: var(--palc-red-500);
+  --accent-hover: var(--palc-red-600);
+  --link: var(--palc-navy-800);
+  --link-hover: var(--palc-red-600);
+  --focus-ring: 0 0 0 2px var(--palc-white), 0 0 0 4px var(--palc-red-500);
+
+  /* typography */
+  --font-display: 'Jost', system-ui, sans-serif;
+  --font-body: 'Barlow', system-ui, sans-serif;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-md: 18px;
+  --text-lg: 22px;
+  --text-xl: 28px;
+  --text-2xl: 36px;
+  --text-3xl: 48px;
+  --text-4xl: 64px;
+  --text-5xl: 84px;
+  --leading-tight: 1.08;
+  --leading-snug: 1.25;
+  --leading-normal: 1.55;
+  --tracking-caps: .16em;
+  --tracking-wide: .08em;
+  --tracking-display: .01em;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* spacing, radius, stíny, přechody */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --container-max: 1280px;
+  --container-pad: 32px;
+  /* ostrá technická geometrie — velké plochy bez zaoblení */
+  --radius-none: 0;
+  --radius-control: 2px;
+  --radius-card: 0;
+  --shadow-card: 0 1px 2px rgba(10, 29, 49, .06), 0 10px 30px rgba(10, 29, 49, .08);
+  --shadow-raised: 0 2px 6px rgba(10, 29, 49, .10), 0 20px 50px rgba(10, 29, 49, .14);
+  --ease-out: cubic-bezier(.2, .7, .3, 1);
+  --dur-fast: 140ms;
+  --dur-base: 220ms;
+}
+
+/* base elementy */
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--text-strong);
+  line-height: var(--leading-tight);
+  margin: 0;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-display);
+}
+
+p { margin: 0; }
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+a:hover { color: var(--link-hover); }
+
+::selection { background: var(--palc-navy-900); color: #fff; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+img { max-width: 100%; }
+
+:focus-visible { outline: none; box-shadow: var(--focus-ring); }

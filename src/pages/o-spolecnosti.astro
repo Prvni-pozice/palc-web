@@ -1,0 +1,71 @@
+---
+// O společnosti — kostra (DS: záměrně prázdné, čeká na podklady klienta: historie, čísla, lidé, provozovna)
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import MetaLine from '../components/MetaLine.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Stat from '../components/Stat.astro';
+import Button from '../components/Button.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+---
+
+<Base
+  title="O společnosti | PALČ"
+  description="PALČ — dodavatel kompletního technického zařízení budov. Zázemí pro velké realizace, vlastní montážní týmy."
+  active="O společnosti"
+>
+  <Section bg="var(--surface-dark)" pad="88px 40px">
+    <MetaLine accent>O společnosti</MetaLine>
+    <h1 class="page-h1">Dodáváme technické systémy, bez kterých stavba nemůže fungovat.</h1>
+    <p class="page-lead">Historie firmy, tým a čísla — obsah doplníme podle podkladů klienta.</p>
+  </Section>
+
+  <Section pad="72px 40px">
+    <div class="stats">
+      <Stat value="X let" label="Zkušeností" />
+      <Stat value="X" label="Realizací" />
+      <Stat value="X" label="Odborníků" />
+      <Stat value="X" label="Montážních týmů" />
+    </div>
+  </Section>
+
+  <Section bg="var(--palc-grey-50)">
+    <div class="zazemi">
+      <ImagePlaceholder label="Areál / hala — dodá klient" ratio="4 / 3" />
+      <div>
+        <SectionHeading overline="Zázemí" title="Máme zázemí pro velké realizace" />
+        <ul class="zazemi__list">
+          {[
+            'Vlastní technické a skladové zázemí',
+            'Vozový park a vybavení montážních týmů',
+            'Sklad materiálu a příprava zakázek',
+            'Koordinace více profesí pod jednou střechou',
+          ].map((x) => (
+            <li class="zazemi__item"><span class="zazemi__dash"></span>{x}</li>
+          ))}
+        </ul>
+        <div class="mt32">
+          <Button variant="secondary" href="/realizace/" arrow>Prohlédnout realizace</Button>
+        </div>
+      </div>
+    </div>
+  </Section>
+</Base>
+
+<style>
+  .page-h1 { color: #fff; font-size: var(--text-3xl); margin-top: 14px; max-width: 860px; }
+  .page-lead { color: var(--text-inverse-muted); font-size: var(--text-md); max-width: 640px; margin-top: 18px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .zazemi { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+  .zazemi__list { margin: 24px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .zazemi__item { display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--text-body); }
+  .zazemi__dash { width: 16px; height: 3px; background: var(--accent); flex-shrink: 0; transform: translateY(-3px); }
+  .mt32 { margin-top: 32px; }
+  @media (max-width: 960px) {
+    .page-h1 { font-size: var(--text-2xl); }
+    .zazemi { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

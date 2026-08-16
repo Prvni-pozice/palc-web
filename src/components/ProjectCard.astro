@@ -1,0 +1,77 @@
+---
+// ProjectCard dle DS: foto (zatím placeholder), meta řádek PLACE · YEAR, titulek, rozsah, tagy
+import Tag from './Tag.astro';
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
+interface Props {
+  title: string;
+  place?: string;
+  year?: string;
+  tags?: string[];
+  scope?: string;
+  image?: string;
+  href?: string;
+  ratio?: string;
+}
+const { title, place, year, tags = [], scope, image, href = '#', ratio = '3 / 2' } = Astro.props;
+const meta = [place, year].filter(Boolean).join(' · ');
+---
+
+<a href={href} class="prj">
+  <div class="prj__media">
+    {image ? (
+      <img src={image} alt={title} class="prj__img" style={`aspect-ratio: ${ratio};`} loading="lazy" />
+    ) : (
+      <ImagePlaceholder ratio={ratio} />
+    )}
+  </div>
+  <div class="prj__body">
+    {meta && <p class="prj__meta">{meta}</p>}
+    <h3 class="prj__title">{title}</h3>
+    {scope && <p class="prj__scope">{scope}</p>}
+    {tags.length > 0 && (
+      <div class="prj__tags">
+        {tags.map((t) => <Tag variant="subtle">{t}</Tag>)}
+      </div>
+    )}
+  </div>
+</a>
+
+<style>
+  .prj {
+    display: block;
+    text-decoration: none;
+    background: #fff;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--dur-base) var(--ease-out);
+  }
+  .prj:hover { box-shadow: var(--shadow-raised); }
+  .prj__media { overflow: hidden; }
+  .prj__img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .prj:hover .prj__img { transform: scale(1.03); }
+  .prj__body { padding: 20px 24px 24px; }
+  .prj__meta {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .prj__title {
+    font-size: 22px;
+    line-height: 1.2;
+    margin-top: 8px;
+    color: var(--text-strong);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .prj:hover .prj__title { color: var(--accent-hover); }
+  .prj__scope { margin-top: 8px; font-size: 14px; color: var(--text-body); }
+  .prj__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+</style>

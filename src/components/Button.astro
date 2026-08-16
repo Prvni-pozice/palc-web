@@ -1,0 +1,49 @@
+---
+// Button dle DS (components/core/Button.jsx): primary/secondary/outline/ghost/inverse, md/lg, arrow
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'inverse';
+  size?: 'md' | 'lg';
+  href?: string;
+  arrow?: boolean;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+const { variant = 'primary', size = 'md', href, arrow = false, type = 'button', class: className = '' } = Astro.props;
+const cls = `btn btn--${variant} btn--${size} ${className}`;
+---
+
+{href ? (
+  <a href={href} class={cls}><slot />{arrow && <span class="btn__arrow" aria-hidden="true">→</span>}</a>
+) : (
+  <button type={type} class={cls}><slot />{arrow && <span class="btn__arrow" aria-hidden="true">→</span>}</button>
+)}
+
+<style is:global>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+    border-radius: var(--radius-control);
+    transition: all var(--dur-fast) var(--ease-out);
+  }
+  .btn--md { font-size: 14px; padding: 11px 20px; }
+  .btn--lg { font-size: 16px; padding: 14px 28px; }
+  .btn--primary { background: var(--accent); color: #fff; border: 1px solid transparent; }
+  .btn--primary:hover { background: var(--accent-hover); color: #fff; }
+  .btn--secondary { background: var(--palc-navy-900); color: #fff; border: 1px solid transparent; }
+  .btn--secondary:hover { background: var(--palc-navy-800); color: #fff; }
+  .btn--outline { background: transparent; color: var(--palc-navy-900); border: 1px solid var(--palc-grey-300); }
+  .btn--outline:hover { border-color: var(--palc-navy-900); color: var(--palc-navy-900); }
+  .btn--ghost { background: transparent; color: var(--palc-navy-900); border: 1px solid transparent; }
+  .btn--ghost:hover { color: var(--accent-hover); }
+  .btn--inverse { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, .4); }
+  .btn--inverse:hover { border-color: #fff; background: rgba(255, 255, 255, .08); color: #fff; }
+  .btn__arrow { display: inline-block; transition: transform var(--dur-fast) var(--ease-out); }
+  .btn:hover .btn__arrow { transform: translateX(4px); }
+</style>

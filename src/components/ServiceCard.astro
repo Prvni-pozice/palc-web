@@ -1,0 +1,43 @@
+---
+// ServiceCard dle DS: bez ikon, jen typografie + šipka. Hover = navy border.
+interface Props {
+  title: string;
+  description: string;
+  href?: string;
+}
+const { title, description, href = '#' } = Astro.props;
+---
+
+<a href={href} class="svc">
+  <h3 class="svc__title">{title}</h3>
+  <p class="svc__desc">{description}</p>
+  <span class="svc__more" aria-hidden="true">Detail služby <span class="svc__arrow">→</span></span>
+</a>
+
+<style>
+  .svc {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid var(--border-subtle);
+    padding: 26px 28px;
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  .svc:hover { border-color: var(--palc-navy-900); }
+  .svc__title { font-size: 20px; color: var(--text-strong); }
+  .svc__desc { font-size: 14px; line-height: 1.55; color: var(--text-body); }
+  .svc__more {
+    margin-top: auto;
+    padding-top: 8px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--palc-navy-900);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  .svc:hover .svc__more { color: var(--accent-hover); }
+  .svc__arrow { display: inline-block; transition: transform var(--dur-fast) var(--ease-out); }
+  .svc:hover .svc__arrow { transform: translateX(4px); }
+</style>

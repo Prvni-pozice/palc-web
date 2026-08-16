@@ -1,0 +1,85 @@
+---
+// Detail služby — vlastní URL pro každou profesi (SEO/GEO KPI ze zadání).
+// Obsah = zatím kostra z dat; texty rozšíří klient / copywriting.
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import MetaLine from '../../components/MetaLine.astro';
+import Tag from '../../components/Tag.astro';
+import Button from '../../components/Button.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
+import { SERVICES } from '../../data/services.js';
+import { PROJECTS } from '../../data/projects.js';
+
+export function getStaticPaths() {
+  return SERVICES.map((s) => ({ params: { slug: s.slug }, props: { service: s } }));
+}
+
+const { service } = Astro.props;
+// Související realizace podle tagů profese
+const related = PROJECTS.filter((p) => service.tags.some((t) => p.tags.includes(t))).slice(0, 3);
+---
+
+<Base
+  title={`${service.title} | PALČ`}
+  description={service.desc}
+  active="Služby"
+>
+  <Section bg="var(--surface-dark)" pad="88px 40px">
+    <MetaLine accent>Služby</MetaLine>
+    <h1 class="page-h1">{service.title}</h1>
+    <p class="page-lead">{service.desc}</p>
+    {service.tags.length > 0 && (
+      <div class="tagrow">
+        {service.tags.map((t) => <Tag variant="inverse">{t}</Tag>)}
+      </div>
+    )}
+  </Section>
+
+  <Section>
+    <div class="detail">
+      <div>
+        <SectionHeading
+          overline="Rozsah dodávky"
+          title="Co v rámci profese zajišťujeme"
+          lead="Detailní popis rozsahu dodávky doplníme podle skutečné nabídky PALČ — projekce, dodávka, montáž, zkoušky, servis."
+        />
+        <div class="detail__cta">
+          <Button variant="primary" href="/poptavka/" arrow>Poptat realizaci</Button>
+          <Button variant="outline" href="/sluzby/">Všechny služby</Button>
+        </div>
+      </div>
+      <ImagePlaceholder label="Detail technologie — dodá klient" ratio="4 / 3" />
+    </div>
+  </Section>
+
+  {related.length > 0 && (
+    <Section bg="var(--palc-grey-50)">
+      <SectionHeading overline="Reference" title="Realizace s touto profesí" />
+      <div class="grid3 mt40">
+        {related.map((p) => (
+          <ProjectCard title={p.title} place={p.place} year={p.year} tags={p.tags} scope={p.scope} href={`/realizace/${p.id}/`} />
+        ))}
+      </div>
+    </Section>
+  )}
+</Base>
+
+<style>
+  .page-h1 { color: #fff; font-size: var(--text-3xl); margin-top: 14px; max-width: 760px; }
+  .page-lead { color: var(--text-inverse-muted); font-size: var(--text-md); max-width: 620px; margin-top: 18px; }
+  .tagrow { display: flex; gap: 8px; margin-top: 28px; flex-wrap: wrap; }
+  .detail { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+  .detail__cta { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .mt40 { margin-top: 40px; }
+  @media (max-width: 960px) {
+    .detail { grid-template-columns: 1fr; gap: 32px; }
+    .grid3 { grid-template-columns: repeat(2, 1fr); }
+    .page-h1 { font-size: var(--text-2xl); }
+  }
+  @media (max-width: 640px) {
+    .grid3 { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+// Verzálkový meta popisek (DS shared.jsx → MetaLine)
+interface Props {
+  accent?: boolean;
+  inverse?: boolean;
+  class?: string;
+}
+const { accent = false, inverse = false, class: className = '' } = Astro.props;
+---
+
+<p class={`meta ${accent ? 'meta--accent' : ''} ${inverse ? 'meta--inverse' : ''} ${className}`}><slot /></p>
+
+<style is:global>
+  .meta {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .meta--accent { color: var(--text-accent); }
+  .meta--inverse { color: var(--text-inverse-muted); }
+</style>

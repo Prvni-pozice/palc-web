@@ -1,0 +1,20 @@
+---
+// Section dle DS shared.jsx: plocha + kontejner 1280px
+interface Props {
+  bg?: string;
+  pad?: string;
+  class?: string;
+}
+const { bg = 'transparent', pad = '96px 40px', class: className = '' } = Astro.props;
+---
+
+<section class={`sec ${className}`} style={`background: ${bg}; padding: ${pad};`}>
+  <div class="sec__inner"><slot /></div>
+</section>
+
+<style is:global>
+  .sec__inner { max-width: var(--container-max); margin: 0 auto; }
+  @media (max-width: 720px) {
+    .sec { padding-left: 20px !important; padding-right: 20px !important; }
+  }
+</style>

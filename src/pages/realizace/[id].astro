@@ -1,0 +1,111 @@
+---
+// Detail reference = case study dle DS ui_kits/web/Realizace.jsx (RealizaceDetailScreen)
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import MetaLine from '../../components/MetaLine.astro';
+import Tag from '../../components/Tag.astro';
+import Button from '../../components/Button.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
+import { PROJECTS } from '../../data/projects.js';
+
+export function getStaticPaths() {
+  return PROJECTS.map((p) => ({ params: { id: p.id }, props: { project: p } }));
+}
+
+const { project: p } = Astro.props;
+const facts = [
+  ['Lokalita', p.place],
+  ['Rok realizace', p.year],
+  ['Typ objektu', p.type],
+  ['Investor / GD', 'Po souhlasu klienta'],
+  ['Rozsah dodávky', p.scope],
+];
+const others = PROJECTS.filter((x) => x.id !== p.id).slice(0, 3);
+const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technické zázemí', 'Tým'];
+---
+
+<Base
+  title={`${p.title} — ${p.place} ${p.year} | PALČ`}
+  description={`${p.scope}. ${p.tags.join(', ')} — ${p.place}, ${p.year}.`}
+  active="Realizace"
+>
+  <ImagePlaceholder dark label="Fotografie celé budovy — dodá klient" ratio="21 / 8" class="casehero" />
+
+  <Section pad="64px 40px">
+    <div class="case">
+      <div>
+        <MetaLine accent>{p.place} · {p.year}</MetaLine>
+        <h1 class="case__title">{p.title}</h1>
+        <div class="case__tags">
+          {p.tags.map((t) => <Tag>{t}</Tag>)}
+        </div>
+        <h3 class="case__h3">Co PALČ na projektu realizoval</h3>
+        <p class="case__text">Stručný technický popis dodávky — profese, výkony, zajímavosti provedení. Doplní se podle skutečné reference klienta.</p>
+        <div class="case__gallery">
+          {gallery.map((g) => <ImagePlaceholder label={g} ratio="4 / 3" />)}
+        </div>
+      </div>
+      <aside class="case__aside">
+        <MetaLine>Parametry</MetaLine>
+        <dl class="case__facts">
+          {facts.map(([k, v]) => (
+            <div class="case__fact">
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <Button variant="primary" href="/poptavka/" arrow class="case__cta">Poptat podobný projekt</Button>
+      </aside>
+    </div>
+  </Section>
+
+  <Section bg="var(--palc-grey-50)">
+    <SectionHeading overline="Podobné realizace" title="Další stavby" />
+    <div class="grid3 mt40">
+      {others.map((x) => (
+        <ProjectCard title={x.title} place={x.place} year={x.year} tags={x.tags} scope={x.scope} href={`/realizace/${x.id}/`} />
+      ))}
+    </div>
+  </Section>
+</Base>
+
+<style>
+  :global(.casehero) { border: 0; }
+  .case { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; }
+  .case__title { font-size: var(--text-3xl); margin: 12px 0 0; }
+  .case__tags { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+  .case__h3 { font-size: 20px; margin: 40px 0 10px; }
+  .case__text { max-width: 560px; }
+  .case__gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 40px; }
+  .case__aside {
+    align-self: start;
+    background: var(--palc-grey-50);
+    border: 1px solid var(--border-subtle);
+    padding: 28px 30px;
+  }
+  .case__facts { margin: 18px 0 0; }
+  .case__fact {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .case__fact dt { font-size: 13px; color: var(--text-muted); }
+  .case__fact dd { margin: 0; font-size: 14px; font-weight: 600; color: var(--text-strong); text-align: right; }
+  .case :global(.case__cta) { margin-top: 24px; width: 100%; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .mt40 { margin-top: 40px; }
+  @media (max-width: 960px) {
+    .case { grid-template-columns: 1fr; gap: 40px; }
+    .case__title { font-size: var(--text-2xl); }
+    .grid3 { grid-template-columns: repeat(2, 1fr); }
+    .case__gallery { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .grid3 { grid-template-columns: 1fr; }
+  }
+</style>

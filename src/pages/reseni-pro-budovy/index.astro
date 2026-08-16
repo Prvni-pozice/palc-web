@@ -1,0 +1,47 @@
+---
+// Řešení pro budovy dle DS ui_kits/web/Reseni.jsx — vstup podle typu budovy, ne profese
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import MetaLine from '../../components/MetaLine.astro';
+import Button from '../../components/Button.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { SEGMENTS } from '../../data/segments.js';
+---
+
+<Base
+  title="Řešení pro budovy — TZB podle typu stavby | PALČ"
+  description="TZB pro logistické haly, bytové projekty, administrativu, retail i veřejné budovy. Řekněte nám, jakou budovu stavíte — profese poskládáme my."
+  active="Řešení pro budovy"
+>
+  <Section bg="var(--surface-dark)" pad="88px 40px">
+    <MetaLine accent>Řešení pro budovy</MetaLine>
+    <h1 class="page-h1">„Potřebuji TZB pro logistickou halu."</h1>
+    <p class="page-lead">Nemusíte vědět, jestli hledáte ZTI nebo MaR. Řekněte nám, jakou budovu stavíte nebo provozujete — profese poskládáme my.</p>
+  </Section>
+
+  <Section bg="var(--palc-grey-50)">
+    <div class="grid3">
+      {SEGMENTS.map((s) => (
+        <ServiceCard title={s.title} description={s.desc} href={`/reseni-pro-budovy/${s.slug}/`} />
+      ))}
+    </div>
+    <div class="center mt56">
+      <Button variant="primary" size="lg" href="/poptavka/" arrow>Poptat realizaci</Button>
+    </div>
+  </Section>
+</Base>
+
+<style>
+  .page-h1 { color: #fff; font-size: var(--text-3xl); margin-top: 14px; max-width: 820px; }
+  .page-lead { color: var(--text-inverse-muted); font-size: var(--text-md); max-width: 640px; margin-top: 18px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .center { text-align: center; }
+  .mt56 { margin-top: 56px; }
+  @media (max-width: 960px) {
+    .grid3 { grid-template-columns: repeat(2, 1fr); }
+    .page-h1 { font-size: var(--text-2xl); }
+  }
+  @media (max-width: 640px) {
+    .grid3 { grid-template-columns: 1fr; }
+  }
+</style>

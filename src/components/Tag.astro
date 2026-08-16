@@ -1,0 +1,33 @@
+---
+// Tag dle DS (components/core/Tag.jsx): default/inverse/subtle + active. Hranatý, verzálky.
+interface Props {
+  variant?: 'default' | 'inverse' | 'subtle';
+  active?: boolean;
+  class?: string;
+}
+const { variant = 'default', active = false, class: className = '' } = Astro.props;
+---
+
+<span class={`tag tag--${variant} ${active ? 'tag--active' : ''} ${className}`}><slot /></span>
+
+<style is:global>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    border-radius: var(--radius-control);
+    user-select: none;
+    transition: all var(--dur-fast) var(--ease-out);
+    background: transparent;
+    color: var(--palc-grey-700);
+    border: 1px solid var(--palc-grey-300);
+  }
+  .tag--inverse { color: rgba(255, 255, 255, .85); border-color: rgba(255, 255, 255, .28); }
+  .tag--subtle { background: var(--palc-grey-100); border-color: transparent; }
+  .tag--active { background: var(--palc-navy-900); color: #fff; border-color: var(--palc-navy-900); }
+</style>
