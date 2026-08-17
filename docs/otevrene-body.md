@@ -26,10 +26,10 @@ systému „PALC Design System" (claude.ai/design). Před spuštěním je potře
 
 ## Technické
 
-6. **Ostrá loga** — PNG z design projektu nejdou přenést (limit 256 KiB na
-   binárky, ověřeno). Aktuálně dočasné SVG (`src/components/Logo.astro`:
-   text „PAL" + C z motif-c.svg). Nahrát `logo-primary.png` + `logo-white.png`
-   (nebo lépe SVG z PDF zdrojů) přes GitHub → pak nahradit v Logo.astro.
+6. ~~Ostrá loga~~ **VYŘEŠENO 17. 8.** — `logo-white.png` přenesen z design
+   projektu (persisted tool-result na disku, CRC ověřeno), `logo-primary.png`
+   z něj vygenerován přebarvením (PIL), favicon = ořez písmene C.
+   Zbývá: až budou vektorové zdroje (PDF/SVG), nahradit PNG za SVG.
 7. **Odeslání poptávky** — formulář `/poptavka/` není napojený (statický web).
    Možnosti: Vercel serverless funkce + SMTP, nebo služba typu Formspree.
    Upload souborů do 100 MB bude chtít úložiště (S3/R2) — rozmyslet.
