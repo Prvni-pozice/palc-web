@@ -30,6 +30,7 @@ const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technic
   title={`${p.title} — ${p.place} ${p.year} | PALČ`}
   description={`${p.scope}. ${p.tags.join(', ')} — ${p.place}, ${p.year}.`}
   active="Realizace"
+  image={p.image}
 >
   {p.image ? (
     <div class="casehero-img" style={`background-image: url('${p.image}');`}></div>

@@ -17,12 +17,15 @@ systému „PALC Design System" (claude.ai/design). Před spuštěním je potře
    (`public/img/realizace/`) jsou DEMO snímky z Unsplash (volná licence) na
    přání Zdeňka, aby web nevypadal prázdně. Před spuštěním NUTNO nahradit
    reálnými stavbami PALČ — cizí budovy nesmí zůstat vydávané za reference.
-3. **Tvrdá čísla** — roky zkušeností, počet realizací, odborníků (na homepage
-   a O společnosti zatím „X"). Loga klientů se souhlasem.
+3. **Tvrdá čísla** — doplněno 18. 8.: 7 let zkušeností, 35 realizací,
+   18 odborníků (homepage i O společnosti). Zbývá: počet montážních týmů
+   (na `/o-spolecnosti/` pořád „X") a loga klientů se souhlasem.
 4. **Kontakty** — e-mail `poptavky@palc.cz` a telefon jsou PLACEHOLDER.
    Sídlo Praha 9 vs. provozovna Rudná čeká potvrzení. → `src/data/site.js`
-5. **Doména** — `astro.config.mjs` má `site: https://example.com`, doplnit
-   ostrou doménu (kvůli sitemap + canonical).
+5. ~~Doména~~ **VYŘEŠENO 18. 8.** — ostrá doména je `palc-instalace.cz`,
+   kanonická varianta s `www`: `https://www.palc-instalace.cz` (doplněno do
+   `astro.config.mjs` kvůli sitemap + canonical). Zbývá DNS na Vercel a ve
+   Vercel project settings nastavit `www` jako primary, apex → 301 na `www`.
 
 ## Technické
 
@@ -39,6 +42,16 @@ systému „PALC Design System" (claude.ai/design). Před spuštěním je potře
    vlastní subset + načtení po `load` (viz postup z web-1P, PSI 100 na mobilu).
 10. **Deploy** — Vercel zatím nenapojený. Po napojení pushovat dávkově
     (každý push = deploy).
+11. ~~Náhledovky při sdílení~~ **VYŘEŠENO 18. 8.** — `Base.astro` posílá
+    `og:url` (= canonical), `og:image`, `og:site_name`, `og:locale`
+    a `twitter:card`. Výchozí náhledovka `public/img/og-default.jpg`
+    (1200×630, bílé logo na navy, generováno PIL z `logo-white.png`).
+    Stránka s vlastní fotkou ji přebije přes prop `image` — dnes to dělá
+    jen detail realizace (`image={p.image}`).
+    **Pozor:** u p1–p3 tím pádem jde do náhledovky DEMO fotka z Unsplash;
+    padá to spolu s bodem 2. Reálné fotky dodat na šířku, min. 1200 px
+    (p3 je dnes na výšku 1200×1600 — pro sdílení špatný poměr).
+    `og:type` je všude `website` — správně, web nemá články.
 
 ## Etapa 2 (připraveno v IA, zatím nestavět)
 

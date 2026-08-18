@@ -17,10 +17,14 @@ interface Props {
   active?: string;
   // headerOverlay: header je průhledný a leží přes hero fotografii (homepage)
   headerOverlay?: boolean;
+  // image: náhledovka při sdílení. Stránka s vlastní fotkou ji předá,
+  // jinak padá na značkovou kartu s logem.
+  image?: string;
 }
 
-const { title, description = '', active, headerOverlay = false } = Astro.props;
+const { title, description = '', active, headerOverlay = false, image } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image || '/img/og-default.jpg', Astro.site);
 ---
 
 <!doctype html>
@@ -37,6 +41,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="PALČ" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
   </head>
   <body>
     {!headerOverlay && <SiteHeader active={active} />}
