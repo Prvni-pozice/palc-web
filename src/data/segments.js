@@ -13,7 +13,7 @@ export const SEGMENTS = [
   {
     slug: 'administrativa-a-kancelare',
     title: 'Administrativa a kanceláře',
-    desc: 'Kompletní TZB kancelářských budov včetně chlazení a VZT.',
+    desc: 'Zdravotechnika, vytápění a plynové rozvody kancelářských budov.',
   },
   {
     slug: 'retail-a-komercni-budovy',

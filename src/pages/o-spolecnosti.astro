@@ -1,5 +1,5 @@
 ---
-// O společnosti — kostra (DS: záměrně prázdné, čeká na podklady klienta: historie, čísla, lidé, provozovna)
+// O společnosti — čísla a text podle podkladů klienta (24. 9. 2026).
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import MetaLine from '../components/MetaLine.astro';
@@ -17,15 +17,29 @@ import ImagePlaceholder from '../components/ImagePlaceholder.astro';
   <Section bg="var(--surface-dark)" pad="88px 40px">
     <MetaLine accent>O společnosti</MetaLine>
     <h1 class="page-h1">Dodáváme technické systémy, bez kterých stavba nemůže fungovat.</h1>
-    <p class="page-lead">Historie firmy, tým a čísla — obsah doplníme podle podkladů klienta.</p>
+    <p class="page-lead">Dodávky technických zařízení budov — podtlakové odvodnění střech, jádrové vrtání, vytápění, plynovody a zdravotně technické instalace.</p>
   </Section>
 
   <Section pad="72px 40px">
     <div class="stats">
-      <Stat value="7 let" label="Zkušeností" />
-      <Stat value="35" label="Realizací" />
-      <Stat value="18" label="Odborníků" />
-      <Stat value="5" label="Montážních týmů" />
+      <Stat value="6 let" label="Zkušeností" />
+      <Stat value="52+" label="Realizací" />
+      <Stat value="16" label="Odborníků" />
+      <Stat value="12" label="Montážních týmů" />
+    </div>
+
+    <div class="intro">
+      <p class="intro__text">
+        Společnost PALČ se zaměřuje na dodávky technických zařízení budov, především v oblasti
+        podtlakového odvodnění střech, jádrového vrtání, vytápění, plynovodů, zdravotně technických
+        instalací a potrubních rozvodů. Navrhujeme a realizujeme spolehlivá a efektivní řešení
+        odpovídající současným technickým standardům a potřebám našich zákazníků.
+      </p>
+      <p class="intro__text">
+        Spolupracujeme s projektanty, stavebními společnostmi i soukromými investory. Ke každému
+        projektu přistupujeme individuálně a navrhujeme řešení, která odpovídají konkrétním
+        požadavkům a potřebám zákazníka.
+      </p>
     </div>
   </Section>
 
@@ -56,6 +70,9 @@ import ImagePlaceholder from '../components/ImagePlaceholder.astro';
   .page-h1 { color: #fff; font-size: var(--text-3xl); margin-top: 14px; max-width: 860px; }
   .page-lead { color: var(--text-inverse-muted); font-size: var(--text-md); max-width: 640px; margin-top: 18px; }
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .intro { margin-top: 56px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; max-width: 980px; }
+  .intro__text { margin: 0; color: var(--text-body); font-size: var(--text-md); line-height: var(--leading-normal); }
+  @media (max-width: 860px) { .intro { grid-template-columns: 1fr; gap: 20px; margin-top: 40px; } }
   .zazemi { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
   .zazemi__list { margin: 24px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
   .zazemi__item { display: flex; gap: 12px; align-items: baseline; font-size: 15px; color: var(--text-body); }

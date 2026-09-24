@@ -66,6 +66,27 @@ const { kind } = Astro.props;
       <path d="M134 40 L146 52 M134 52 L146 40" stroke="#133559" stroke-width="1" />
     </svg>
   )}
+  {kind === 'jadrove-vrtani' && (
+    <svg viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- řez konstrukcí s prostupy: korunka, vyjmuté jádro, osy vrtů -->
+      <path d="M8 18 H272 M8 54 H272" stroke="#C2CDD6" stroke-width="1.5" />
+      <path d="M8 18 V54 M272 18 V54" stroke="#C2CDD6" stroke-width="1" />
+      <!-- prostup 1: korunka v záběru -->
+      <ellipse cx="72" cy="18" rx="22" ry="6" stroke="#133559" stroke-width="1.5" />
+      <ellipse cx="72" cy="18" rx="14" ry="4" stroke="#C2CDD6" stroke-width="1" />
+      <path d="M50 18 V54 M94 18 V54" stroke="#133559" stroke-width="1.5" />
+      <ellipse cx="72" cy="54" rx="22" ry="6" stroke="#133559" stroke-width="1.5" stroke-dasharray="4 4" />
+      <!-- osa vrtu -->
+      <path d="M72 6 V66" stroke="#FF464A" stroke-width="1" stroke-dasharray="6 4" />
+      <!-- prostup 2: hotový otvor -->
+      <ellipse cx="168" cy="18" rx="16" ry="5" stroke="#133559" stroke-width="1.5" />
+      <path d="M152 18 V54 M184 18 V54" stroke="#C2CDD6" stroke-width="1" />
+      <!-- vyjmuté jádro vedle konstrukce -->
+      <path d="M228 26 H252 V60 H228 Z" stroke="#133559" stroke-width="1.5" />
+      <ellipse cx="240" cy="26" rx="12" ry="4" stroke="#133559" stroke-width="1.5" />
+      <path d="M232 40 H248" stroke="#C2CDD6" stroke-width="1" />
+    </svg>
+  )}
   {kind === 'plyn' && (
     <svg viewBox="0 0 280 72" xmlns="http://www.w3.org/2000/svg" fill="none">
       <!-- plynovod: uzávěr + manometr + regulátor -->

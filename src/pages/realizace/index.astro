@@ -11,7 +11,7 @@ import { PROFESSIONS } from '../../data/services.js';
 
 <Base
   title="Realizace — stavby, které držíme v chodu | PALČ"
-  description="Reference PALČ: administrativní budovy, haly, bytové projekty, retail, veřejné stavby. Každá důležitá reference je samostatná case study."
+  description="Reference PALČ: podtlakové odvodnění střech výrobních a skladových hal, zdravotechnika a vytápění bytových i rodinných domů, plynové kotelny a rozvody."
   active="Realizace"
 >
   <Section pad="72px 40px 40px">
@@ -39,7 +39,7 @@ import { PROFESSIONS } from '../../data/services.js';
   <Section bg="var(--palc-grey-50)" pad="56px 40px 96px">
     <div class="grid3" data-projects>
       {PROJECTS.map((p) => (
-        <div class="grid3__item" data-type={p.type} data-tags={p.tags.join('|')}>
+        <div class="grid3__item" data-type={p.group} data-tags={p.tags.join('|')}>
           <ProjectCard title={p.title} place={p.place} year={p.year} tags={p.tags} scope={p.scope} image={p.image} href={`/realizace/${p.id}/`} />
         </div>
       ))}

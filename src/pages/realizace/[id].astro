@@ -23,7 +23,6 @@ const facts = [
   ['Rozsah dodávky', p.scope],
 ];
 const others = PROJECTS.filter((x) => x.id !== p.id).slice(0, 3);
-const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technické zázemí', 'Tým'];
 ---
 
 <Base
@@ -47,10 +46,8 @@ const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technic
           {p.tags.map((t) => <Tag>{t}</Tag>)}
         </div>
         <h3 class="case__h3">Co PALČ na projektu realizoval</h3>
-        <p class="case__text">Stručný technický popis dodávky — profese, výkony, zajímavosti provedení. Doplní se podle skutečné reference klienta.</p>
-        <div class="case__gallery">
-          {gallery.map((g) => <ImagePlaceholder label={g} ratio="4 / 3" />)}
-        </div>
+        <p class="case__text">{p.scope}.</p>
+        {p.imageNote && <p class="case__note">{p.imageNote} — {p.title}, {p.place}.</p>}
       </div>
       <aside class="case__aside">
         <MetaLine>Parametry</MetaLine>
@@ -88,11 +85,11 @@ const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technic
     .casehero-img { aspect-ratio: 3 / 2; }
   }
   .case { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; }
+  .case__note { margin-top: 12px; color: var(--text-muted); font-size: var(--text-sm); }
   .case__title { font-size: var(--text-3xl); margin: 12px 0 0; }
   .case__tags { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
   .case__h3 { font-size: 20px; margin: 40px 0 10px; }
   .case__text { max-width: 560px; }
-  .case__gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 40px; }
   .case__aside {
     align-self: start;
     background: var(--palc-grey-50);
@@ -116,7 +113,6 @@ const gallery = ['Budova', 'Strojovna', 'Rozvody', 'Detail provedení', 'Technic
     .case { grid-template-columns: 1fr; gap: 40px; }
     .case__title { font-size: var(--text-2xl); }
     .grid3 { grid-template-columns: repeat(2, 1fr); }
-    .case__gallery { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 640px) {
     .grid3 { grid-template-columns: 1fr; }

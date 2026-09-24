@@ -40,11 +40,19 @@ const related = PROJECTS.filter((p) => service.tags.some((t) => p.tags.includes(
   <Section>
     <div class="detail">
       <div>
-        <SectionHeading
-          overline="Rozsah dodávky"
-          title="Co v rámci profese zajišťujeme"
-          lead="Detailní popis rozsahu dodávky doplníme podle skutečné nabídky PALČ — projekce, dodávka, montáž, zkoušky, servis."
-        />
+        <SectionHeading overline="Rozsah dodávky" title="Co v rámci profese zajišťujeme" />
+        {service.items && (
+          <ul class="scope">
+            {service.items.map((i) => <li class="scope__item"><span class="scope__dash"></span>{i}</li>)}
+          </ul>
+        )}
+        {service.body && service.body.map((p) => <p class="detail__text">{p}</p>)}
+        {service.priceNote && (
+          <div class="price">
+            <MetaLine accent>Cena</MetaLine>
+            <p class="price__text">{service.priceNote}</p>
+          </div>
+        )}
         <div class="detail__cta">
           <Button variant="primary" href="/poptavka/" arrow>Poptat realizaci</Button>
           <Button variant="outline" href="/sluzby/">Všechny služby</Button>
@@ -70,7 +78,13 @@ const related = PROJECTS.filter((p) => service.tags.some((t) => p.tags.includes(
   .page-h1 { color: #fff; font-size: var(--text-3xl); margin-top: 14px; max-width: 760px; }
   .page-lead { color: var(--text-inverse-muted); font-size: var(--text-md); max-width: 620px; margin-top: 18px; }
   .tagrow { display: flex; gap: 8px; margin-top: 28px; flex-wrap: wrap; }
-  .detail { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+  .detail { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start; }
+  .scope { margin: 28px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .scope__item { display: flex; gap: 14px; color: var(--text-body); font-size: var(--text-md); line-height: var(--leading-normal); }
+  .scope__dash { flex: none; width: 16px; height: 2px; background: var(--accent); margin-top: 14px; }
+  .detail__text { margin: 18px 0 0; color: var(--text-body); font-size: var(--text-base); line-height: var(--leading-normal); }
+  .price { margin-top: 32px; padding: 20px 24px; background: var(--palc-grey-50); border-left: 2px solid var(--accent); }
+  .price__text { margin: 10px 0 0; color: var(--text-body); font-size: var(--text-base); }
   .detail__cta { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
   .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .mt40 { margin-top: 40px; }

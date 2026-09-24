@@ -10,20 +10,20 @@ import ServiceCard from '../../components/ServiceCard.astro';
 import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
 import { SERVICES, PROFESSIONS } from '../../data/services.js';
 
-const mainServices = SERVICES.filter((s) => s.slug !== 'specializovane-technologie');
+const mainServices = SERVICES;
 ---
 
 <Base
   title="Služby — kompletní technické zařízení budov | PALČ"
-  description="Jeden dodavatel a jedna odpovědnost za všechny technické profese stavby — zdravotechnika, vytápění, vzduchotechnika, chlazení, plyn."
+  description="Zdravotechnika a podtlakové odvodnění střech, vytápění, plynovody a jádrové vrtání — od projektu přes montáž po uvedení do provozu."
   active="Služby"
 >
   <Section bg="var(--surface-dark)" pad="88px 40px">
     <MetaLine accent>Služby</MetaLine>
     <h1 class="page-h1">Kompletní technické zařízení budov</h1>
-    <p class="page-lead">Jeden dodavatel a jedna odpovědnost za všechny technické profese stavby — od projektu přes montáž po uvedení do provozu a&nbsp;servis.</p>
+    <p class="page-lead">Jeden dodavatel a jedna odpovědnost za technické profese stavby — od projektu přes montáž po uvedení do provozu a&nbsp;servis.</p>
     <div class="tagrow">
-      {PROFESSIONS.map((p) => <Tag variant="inverse">{p}</Tag>)}
+      {SERVICES.map((s) => <Tag variant="inverse">{s.title}</Tag>)}
     </div>
   </Section>
 
@@ -40,9 +40,9 @@ const mainServices = SERVICES.filter((s) => s.slug !== 'specializovane-technolog
     <div class="spec">
       <div>
         <SectionHeading
-          overline="Specializované technologie"
+          overline="Specializace"
           title="Práce, které běžný instalatér nedělá"
-          lead="Podtlakové odvodnění střech, jádrové vrtání, technologické rozvody a další specializace pro velké objekty."
+          lead="Podtlakové odvodnění střech systémů DYKA Vacurain, Wavin QuickStream a Geberit Pluvia a jádrové vrtání do betonu — technologie pro velké objekty, kde se chyba v návrhu draze platí."
         />
         <div class="spec__cta">
           <Button variant="secondary" href="/poptavka/" arrow>Poptat realizaci</Button>
