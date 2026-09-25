@@ -16,7 +16,7 @@ systému „PALC Design System" (claude.ai/design). Před spuštěním je potře
    — před spuštěním nahradit reálnou stavbou PALČ. Soubory `p1–p3.jpg`
    v `public/img/realizace/` už nic nepoužívá (mrtvé demo, k odstranění).
 3. ~~Tvrdá čísla~~ **VYŘEŠENO 24. 9.** — 6 let, 52+ realizací, 16 odborníků,
-   12 montážních týmů (homepage i O společnosti). Zbývá: loga klientů se souhlasem.
+   8 montážních týmů (homepage i O společnosti; 25. 9. opraveno z 12). Zbývá: loga klientů se souhlasem.
 4. **Kontakty** — e-mail `poptavky@palc.cz` a telefon jsou PLACEHOLDER.
    Sídlo Praha 9 vs. provozovna Rudná čeká potvrzení. → `src/data/site.js`
 5. ~~Doména~~ **VYŘEŠENO 18. 8.** — ostrá doména je `palc-instalace.cz`,
