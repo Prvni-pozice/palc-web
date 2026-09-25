@@ -1,25 +1,22 @@
 # Otevřené body — palc-web
 
-Stav k 16. 8. 2026. Web je postavený jako kompletní kostra podle zadání a design
+Stav k 25. 9. 2026 (kostra 16. 8., obsah od klienta 24. 9.). Web je postavený jako kompletní kostra podle zadání a design
 systému „PALC Design System" (claude.ai/design). Před spuštěním je potřeba doplnit:
 
 ## Blokuje obsah (vstupy od klienta)
 
-1. **Seznam služeb/profesí** — jistě doloženo jen: kompletní TZB, podtlakové
-   odvodnění střech, jádrové vrtání; voda, odpad, topení, klimatizace.
-   MaR a Elektro zatím NEJSOU na webu (nevíme, jestli PALČ dodává).
-   → `src/data/services.js`
-2. **Reference s fotografiemi** — všech 6 realizací jsou UKÁZKOVÁ DATA.
-   Potřebujeme skutečné stavby: název, lokalita, rok, typ, profese, rozsah,
-   investor/GD (pokud lze zveřejnit), fotky (celá budova!).
-   → `src/data/projects.js`
-   **POZOR:** hero slider (`public/img/hero/`) a fotky u p1–p3
-   (`public/img/realizace/`) jsou DEMO snímky z Unsplash (volná licence) na
-   přání Zdeňka, aby web nevypadal prázdně. Před spuštěním NUTNO nahradit
-   reálnými stavbami PALČ — cizí budovy nesmí zůstat vydávané za reference.
-3. **Tvrdá čísla** — doplněno 18. 8.: 7 let zkušeností, 35 realizací,
-   18 odborníků (homepage i O společnosti). Zbývá: počet montážních týmů
-   (na `/o-spolecnosti/` pořád „X") a loga klientů se souhlasem.
+1. ~~Seznam služeb~~ **VYŘEŠENO 24. 9.** — zdravotechnika (vč. podtlakového
+   odvodnění střech), vytápění, plyn, jádrové vrtání; rozsahy dodávek podle
+   klienta. Vzduchotechnika, rekuperace a chlazení z nabídky vyřazeny.
+   Ceník jádrového vrtání se nezveřejňuje (cena na poptávku).
+2. **Fotky** — 30 skutečných referencí doplněno 24. 9. (`src/data/projects.js`),
+   ale fotky mají jen dvě (vizualizace Rezidence Elišky Přemyslovny a Dvojdomy
+   Předboř z PDF klienta, v textu označené jako vizualizace). Ostatní reference
+   jsou bez fotky. **Hero slider (`public/img/hero/`) je pořád DEMO z Unsplash**
+   — před spuštěním nahradit reálnou stavbou PALČ. Soubory `p1–p3.jpg`
+   v `public/img/realizace/` už nic nepoužívá (mrtvé demo, k odstranění).
+3. ~~Tvrdá čísla~~ **VYŘEŠENO 24. 9.** — 6 let, 52+ realizací, 16 odborníků,
+   12 montážních týmů (homepage i O společnosti). Zbývá: loga klientů se souhlasem.
 4. **Kontakty** — e-mail `poptavky@palc.cz` a telefon jsou PLACEHOLDER.
    Sídlo Praha 9 vs. provozovna Rudná čeká potvrzení. → `src/data/site.js`
 5. ~~Doména~~ **VYŘEŠENO 18. 8.** — ostrá doména je `palc-instalace.cz`,
@@ -40,8 +37,8 @@ systému „PALC Design System" (claude.ai/design). Před spuštěním je potře
    Až budou licencované řezy, vyměnit v `src/layouts/Base.astro` + tokens.
 9. **Výkon** — fonty přes @fontsource (8 řezů). Před ostrým spuštěním zvážit
    vlastní subset + načtení po `load` (viz postup z web-1P, PSI 100 na mobilu).
-10. **Deploy** — Vercel zatím nenapojený. Po napojení pushovat dávkově
-    (každý push = deploy).
+10. ~~Deploy~~ **VYŘEŠENO** — Vercel napojený (https://palc-web.vercel.app/),
+    push na main = deploy. Pushovat dávkově (každý push = deploy).
 11. ~~Náhledovky při sdílení~~ **VYŘEŠENO 18. 8.** — `Base.astro` posílá
     `og:url` (= canonical), `og:image`, `og:site_name`, `og:locale`
     a `twitter:card`. Výchozí náhledovka `public/img/og-default.jpg`
